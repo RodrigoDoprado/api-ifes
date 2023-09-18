@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SuccessfullyCreated, NotFoundError } from "../api/api-error"
 import { studentRepository } from "../repository/StudentRepository"
 
 class StudentService {
@@ -7,18 +6,26 @@ class StudentService {
     return await studentRepository.find()
   }
 
-  public async create(firstName, avatar, lastName) {
-    await studentRepository.save(studentRepository.create({ firstName, avatar, lastName }),)
-    .then(()=>{throw new SuccessfullyCreated("Aluno Cadastrado com Sucesso")})
-    .catch(()=>{throw new NotFoundError("Aluno não Cadastrado, Tente mais Tarde")})
+  public async create(firstName, lastName, avatar) {
+    return await studentRepository.save(
+      await studentRepository.create({ firstName, lastName, avatar }),
+    )
   }
 
   public async show(id) {
     return await studentRepository.findOneBy({ id })
   }
 
-  public update(product) {
-    studentRepository.save(product)
+  public async update(firstName, lastName, avatar, id) {
+    const buscaStudent = await this.show(id)
+    if (buscaStudent) {
+      const data = {
+        firstName: firstName ? firstName : buscaStudent.firstName,
+        lastName: lastName ? lastName : buscaStudent.lastName,
+        avatar: avatar ? avatar : buscaStudent.avatar,
+      }
+      return await studentRepository.update(buscaStudent.id, data)
+    }
   }
 
   public delete(id: any) {

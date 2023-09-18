@@ -9,9 +9,9 @@ class StudentRouter {
   }
 
   private metodRoutes() {
-    this.routes.get("/student", new StudentController().indexStudent)
+    this.routes.get("/students", new StudentController().indexStudent)
     this.routes.post("/student", new StudentController().createStudent)
-    this.routes.put("/student", new StudentController().updateStudent)
+    this.routes.put("/student/:id", new StudentController().updateStudent)
     this.routes.delete("/student", new StudentController().deleteStudent)
   }
 }

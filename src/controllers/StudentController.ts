@@ -1,44 +1,37 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Request, Response } from "express"
-import StoreService from "../services/StudentService"
+import StudentService from "../services/StudentService"
 
 class StudentController {
-  
   public async indexStudent(req: Request, res: Response) {
-    return res.status(200).json(await new StoreService().index())
-  }
-  
-  public async createStudent(req: Request, res: Response) {
-    const { firstName, lastName, avatar } = req.body
-    console.log(firstName,lastName)
-    await new StoreService().create(firstName, lastName, avatar)
+    try {
+      return res.status(200).json(await new StudentService().index())
+    } catch (e) {
+      res.status(404).json({ message: "Não há Aluno Cadastrado " + e })
+    }
   }
 
   public async getByIdStore(req: Request, res: Response) {}
 
-  async updateStudent(req: Request, res: Response) {
-    // const { firstName, avatar, cnpj } = req.body
-    // try {
-    //   if (req.employeeA) {
-    //     const updateStore = await storeRepository.findOneBy(req.params)
-    //     if (!updateStore) {
-    //       return res.status(404).json({ message: "Produto Não Existente!" })
-    //     }
-    //     const data = {
-    //       firstName: firstName ? firstName : updateStore.firstName,
-    //       avatar: avatar ? avatar : updateStore.avatar,
-    //       cnpj: cnpj ? cnpj : updateStore.cnpj,
-    //     }
-    //     await storeRepository.update(updateStore.id, data)
-    //     return res.status(200).json({ message: "Store Alterado com Sucesso!" })
-    //   } else {
-    //     return res.status(404).json({ message: "Sessão não Autorizado" })
-    //   }
-    // } catch (error) {
-    //   return res
-    //     .status(500)
-    //     .json({ error: error, message: "Internal Server Error" })
-    // }
+  public async createStudent(req: Request, res: Response) {
+    const { firstName, lastName, avatar } = await req.body
+    try {
+      await new StudentService().create(firstName, lastName, avatar)
+      res.status(201).json({ message: "Aluno Cadastrado com Sucesso" })
+    } catch (e) {
+      res.status(404).json({ message: "Aluno não Cadastrado com Sucesso " + e })
+    }
+  }
+
+  public async updateStudent(req: Request, res: Response) {
+    const { firstName, lastName, avatar } = await req.body
+    const { id } = req.params
+    try {
+      new StudentService().update(firstName, lastName, avatar, id)
+      return res.status(200).json({ message: "Aluno Alterado com Sucesso!" })
+    } catch (e) {
+      return res.status(404).json({ message: "Aluno não Alterado " + e })
+    }
   }
 
   // async putAddressStore(req: Request, res: Response) {
@@ -57,14 +50,14 @@ class StudentController {
   // }
 
   async deleteStudent(req: Request, res: Response) {
-  //   try {
-  //     await storeRepository.delete(req.store.id)
-  //         return res.status(200).json({ message: "Loja deletado com Sucesso!" })
-  //   } catch (error) {
-  //     return res
-  //       .status(500)
-  //       .json({ error: error, message: "Internal Server Error" })
-  //   }
+    //   try {
+    //     await storeRepository.delete(req.store.id)
+    //         return res.status(200).json({ message: "Loja deletado com Sucesso!" })
+    //   } catch (error) {
+    //     return res
+    //       .status(500)
+    //       .json({ error: error, message: "Internal Server Error" })
+    //   }
   }
 }
 export default StudentController
