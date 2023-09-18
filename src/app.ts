@@ -1,7 +1,10 @@
 import "express-async-errors"
+import morgan from "morgan"
+import bodyParser from "body-parser"
+import cors from "cors"
 import express from "express"
-import IndexRouter from "./routers/IndexRouter"
-
+import StudentRouter from "./routers/StudentRouter"
+import { ErrorMiddleware } from "./middlewares/ErrorMiddlewares"
 class App {
   public app: express.Application
 
@@ -21,11 +24,18 @@ class App {
       )
       next()
     })
+    this.app.use(bodyParser.json())
+    this.app.use(express.json())
+    this.app.use(morgan("dev"))
+    this.app.use(cors())
+    this.app.use(express.urlencoded({ extended: true }))
+    this.app.use(ErrorMiddleware)
   }
 
   private routes() {
     this.app.use("/file", express.static("uploads"))
-    this.app.use(IndexRouter)
+    this.app.use(StudentRouter)
+    // this.app.use(IndexRouter)
   }
 }
 
