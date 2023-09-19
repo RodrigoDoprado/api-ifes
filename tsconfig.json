@@ -24,7 +24,7 @@
 	},
 	"include": [
 		"src/**/**/**/*"
-	],
+, "src/entity/.ts"	],
 	"exclude": [
 		"node_modules",
 		"build"

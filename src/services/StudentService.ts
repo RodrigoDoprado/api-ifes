@@ -1,14 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { studentRepository } from "../repository/StudentRepository"
+import CurseService from "./CourseService"
 
 class StudentService {
   public async index() {
     return await studentRepository.find()
   }
 
-  public async create(firstName, lastName, avatar) {
+  public async create(enroll, firstName, lastName, avatar, course) {
+    const buscaCurse = await new CurseService().show(course)
     return await studentRepository.save(
-      await studentRepository.create({ firstName, lastName, avatar }),
+      await studentRepository.create({
+        enroll,
+        firstName,
+        lastName,
+        avatar,
+        course: buscaCurse,
+      }),
     )
   }
 
@@ -30,6 +38,21 @@ class StudentService {
 
   public delete(id: any) {
     studentRepository.delete(id)
+  }
+
+  public async generateEnroll(course) {
+    const anoAtual = new Date().getFullYear()
+    let mesAtual = new Date().getMonth()
+    if (mesAtual <= 6) {
+      mesAtual = 1
+    } else {
+      mesAtual = 2
+    }
+    const siglaCurso = await new CurseService().show(course)
+    const numeros = Math.floor(Math.random() * 10000)
+    const enroll =
+      anoAtual + "" + mesAtual + "" + siglaCurso.acronym + "" + numeros
+    return enroll
   }
 }
 export default StudentService

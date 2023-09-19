@@ -7,8 +7,10 @@ AppDataSource.initialize()
     const url = process.env.URL
     const port = process.env.PORT
     const server = http.createServer(app)
-    server.listen(port, () => console.log("Api Funcionando, Host-> "+url+":"+port))
+    server.listen(port, () =>
+      console.log("Api Funcionando, Host-> " + url + ":" + port),
+    )
   })
   .catch((e) => {
-    console.log(e+" Não há conexão com o banco de dados !!!")
+    console.log(e + " Não há conexão com o banco de dados !!!")
   })

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Entity,
   Column,
@@ -5,21 +6,28 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   DeleteDateColumn,
+  JoinColumn,
+  ManyToOne,
 } from "typeorm"
+import { CourseEntity } from "./CourseEntiry"
 
-@Entity("students")
-export class Student {
+@Entity("classes") //turmas
+export class ClassEntity {
   @PrimaryGeneratedColumn()
   public id: string
 
   @Column({ type: "text", nullable: false })
-  public firstName: string
+  public title: string
 
   @Column({ type: "text", nullable: false })
-  public lastName: string
+  public acronym: string //sigla
 
   @Column({ type: "text", nullable: false })
-  public avatar: string
+  public Shift: string //turno
+
+  @ManyToOne((type) => CourseEntity, (classes) => classes, { eager: true })
+  @JoinColumn({ name: "course_id", referencedColumnName: "id" })
+  public course: CourseEntity
 
   @CreateDateColumn()
   public created_at: Date // Creation date

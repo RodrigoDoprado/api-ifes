@@ -1,4 +1,4 @@
 import { AppDataSource } from "../data-source"
-import { Student } from "../entity/Student"
+import { StudentEntity } from "../entity/StudentEntiry"
 
-export const studentRepository = AppDataSource.getRepository(Student)
+export const studentRepository = AppDataSource.getRepository(StudentEntity)

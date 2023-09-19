@@ -5,6 +5,7 @@ import bodyParser from "body-parser"
 import cors from "cors"
 import StudentRouter from "./routers/StudentRouter"
 import IndexRouter from "./routers/IndexRouter"
+import CourseRouter from "./routers/CourseRouter"
 
 class App {
   public app: express.Application
@@ -36,6 +37,7 @@ class App {
   private routes() {
     this.app.use("/file", express.static("uploads"))
     this.app.use(StudentRouter)
+    this.app.use(CourseRouter)
     this.app.use(IndexRouter)
   }
 }

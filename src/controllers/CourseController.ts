@@ -1,43 +1,36 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Request, Response } from "express"
-import StudentService from "../services/StudentService"
+import CurseService from "../services/CourseService"
 
-class StudentController {
-  public async indexStudent(req: Request, res: Response) {
+class CourseController {
+  public async indexCourse(req: Request, res: Response) {
     try {
-      return res.status(200).json(await new StudentService().index())
+      return res.status(200).json(await new CurseService().index())
     } catch (e) {
-      res.status(404).json({ message: "Não há Aluno Cadastrado " + e })
+      res.status(404).json({ message: "Não há Cursos Cadastrado " + e })
     }
   }
 
-  public async getByIdStore(req: Request, res: Response) {}
+  public async getByIdCourse(req: Request, res: Response) {}
 
   public async createStudent(req: Request, res: Response) {
-    const { firstName, lastName, avatar, course } = await req.body
+    const { title, acronym } = await req.body
     try {
-      const enroll = await new StudentService().generateEnroll(course)
-      await new StudentService().create(
-        enroll,
-        firstName,
-        lastName,
-        avatar,
-        course,
-      )
-      res.status(201).json({ message: "Aluno Cadastrado com Sucesso" })
+      await new CurseService().create(title, acronym)
+      res.status(201).json({ message: "Curso Cadastrado com Sucesso" })
     } catch (e) {
-      res.status(404).json({ message: "Aluno não Cadastrado com Sucesso " + e })
+      res.status(404).json({ message: "Curso não Cadastrado com Sucesso " + e })
     }
   }
 
-  public async updateStudent(req: Request, res: Response) {
-    const { firstName, lastName, avatar } = await req.body
+  public async updateCourse(req: Request, res: Response) {
+    const { title, acronym } = await req.body
     const { id } = req.params
     try {
-      new StudentService().update(firstName, lastName, avatar, id)
-      return res.status(200).json({ message: "Aluno Alterado com Sucesso!" })
+      new CurseService().update(title, acronym, id)
+      return res.status(200).json({ message: "Curso Alterado com Sucesso!" })
     } catch (e) {
-      return res.status(404).json({ message: "Aluno não Alterado " + e })
+      return res.status(404).json({ message: "Curso não Alterado " + e })
     }
   }
 
@@ -56,7 +49,7 @@ class StudentController {
   //   } catch (error) {return res.status(500).json({ error: error, message: "Internal Server Error" })}
   // }
 
-  async deleteStudent(req: Request, res: Response) {
+  async deleteCourse(req: Request, res: Response) {
     //   try {
     //     await storeRepository.delete(req.store.id)
     //         return res.status(200).json({ message: "Loja deletado com Sucesso!" })
@@ -67,4 +60,4 @@ class StudentController {
     //   }
   }
 }
-export default StudentController
+export default CourseController
