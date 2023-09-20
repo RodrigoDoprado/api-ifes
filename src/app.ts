@@ -6,6 +6,7 @@ import cors from "cors"
 import StudentRouter from "./routers/StudentRouter"
 import IndexRouter from "./routers/IndexRouter"
 import CourseRouter from "./routers/CourseRouter"
+import TeacherRouter from "./routers/TeacherRouter"
 
 class App {
   public app: express.Application
@@ -37,6 +38,7 @@ class App {
   private routes() {
     this.app.use("/file", express.static("uploads"))
     this.app.use(StudentRouter)
+    this.app.use(TeacherRouter)
     this.app.use(CourseRouter)
     this.app.use(IndexRouter)
   }

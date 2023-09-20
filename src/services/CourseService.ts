@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { curseRepository } from "../repository/CourseRepository"
 
 class CurseService {
