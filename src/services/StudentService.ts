@@ -36,7 +36,7 @@ class StudentService {
     }
   }
 
-  public delete(id: any) {
+  public delete(id) {
     studentRepository.delete(id)
   }
 

@@ -41,30 +41,14 @@ class StudentController {
     }
   }
 
-  // async putAddressStore(req: Request, res: Response) {
-  //   const {uf,city,neighborhood,road,number,zipCode}=req.body
-  //   try {
-  //     const data={
-  //       uf:uf ? uf :req.store.address?,
-  //       avatar:avatar ? avatar : req.store.avatar,
-  //       cnpj:cnpj ? cnpj : req.store.cnpj,
-  //     }
-  //     await storeRepository.update(req.store.id,{
-  //       address:uf
-  //     })
-  //     return res.status(200).json({message: "Store Alterado com Sucesso!" })
-  //   } catch (error) {return res.status(500).json({ error: error, message: "Internal Server Error" })}
-  // }
-
-  async deleteStudent(req: Request, res: Response) {
-    //   try {
-    //     await storeRepository.delete(req.store.id)
-    //         return res.status(200).json({ message: "Loja deletado com Sucesso!" })
-    //   } catch (error) {
-    //     return res
-    //       .status(500)
-    //       .json({ error: error, message: "Internal Server Error" })
-    //   }
+  public async deleteStudent(req: Request, res: Response) {
+    const { id } = req.params
+    try {
+      new StudentService().delete(id)
+      return res.status(200).json({ message: "Aluno deletado com Sucesso!" })
+    } catch (e) {
+      return res.status(404).json({ message: "Aluno não Deletado " + e })
+    }
   }
 }
 export default StudentController

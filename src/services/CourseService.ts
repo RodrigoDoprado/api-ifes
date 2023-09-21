@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { curseRepository } from "../repository/CourseRepository"
+import { courseRepository } from "../repository/CourseRepository"
 
 class CurseService {
   public async index() {
-    return await curseRepository.find()
+    return await courseRepository.find()
   }
 
   public async create(title, acronym) {
     //verificar se o curso exites
-    return await curseRepository.save(
-      await curseRepository.create({ title, acronym }),
+    return await courseRepository.save(
+      await courseRepository.create({ title, acronym }),
     )
   }
 
   public async show(id) {
-    return await curseRepository.findOneBy({ id })
+    if (id != undefined) return await courseRepository.findOneBy({ id })
   }
 
   public async update(title, acronym, id) {
@@ -24,12 +24,12 @@ class CurseService {
         title: title ? title : buscaCurse.title,
         acronym: acronym ? acronym : buscaCurse.acronym,
       }
-      return await curseRepository.update(buscaCurse.id, data)
+      return await courseRepository.update(buscaCurse.id, data)
     }
   }
 
   public delete(id: any) {
-    curseRepository.delete(id)
+    courseRepository.delete(id)
   }
 }
 export default CurseService
