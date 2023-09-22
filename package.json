@@ -31,7 +31,7 @@
       "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migration/default",
       "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
       "build": "tsc",
-      "start": "ts-node ./build/server.js",
+      "start": "yarn migration:run && ts-node ./build/server.js",
       "husky": "husky install",
       "test": "jest",
       "typeorm": "typeorm-ts-node-commonjs"
