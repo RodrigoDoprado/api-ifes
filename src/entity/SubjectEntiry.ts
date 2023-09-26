@@ -6,14 +6,13 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   DeleteDateColumn,
-  OneToMany,
   ManyToMany,
+  JoinTable,
 } from "typeorm"
-import { ClassEntity } from "./ClassEntiry"
-import { StudentEntity } from "./StudentEntiry"
+import { CourseEntity } from "./CourseEntiry"
 
-@Entity("courses") //curso
-export class CourseEntity {
+@Entity("subjects") //materias
+export class SubjectEntiry {
   @PrimaryGeneratedColumn()
   public id: string
 
@@ -23,14 +22,22 @@ export class CourseEntity {
   @Column({ type: "text", nullable: false })
   public acronym: string //sigla
 
-  @OneToMany((type) => ClassEntity, (course) => course)
-  public classes: ClassEntity[]
+  // @Column({ type: "text", nullable: false })
+  // public period: string // periodo
 
-  @OneToMany((type) => StudentEntity, (course) => course)
-  public students: StudentEntity[]
-
-  @ManyToMany((type) => CourseEntity, (courses) => courses)
-  public subjects: CourseEntity[]
+  @ManyToMany((type) => CourseEntity, (subjects) => subjects)
+  @JoinTable({
+    name: "course_subject",
+    joinColumn: {
+      name: "course_id",
+      referencedColumnName: "id",
+    },
+    inverseJoinColumn: {
+      name: "subject_id",
+      referencedColumnName: "id",
+    },
+  })
+  public courses: CourseEntity[]
 
   @CreateDateColumn()
   public created_at: Date // Creation date

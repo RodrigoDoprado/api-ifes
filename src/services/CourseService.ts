@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { courseRepository } from "../repository/CourseRepository"
 
-class CurseService {
+class CourseService {
   public async index() {
     return await courseRepository.find()
   }
@@ -32,4 +32,4 @@ class CurseService {
     courseRepository.delete(id)
   }
 }
-export default CurseService
+export default CourseService

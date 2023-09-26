@@ -24,6 +24,10 @@ class StudentService {
     return await studentRepository.findOneBy({ id })
   }
 
+  public async showEnroll(enroll) {
+    return await studentRepository.findOneBy({ enroll })
+  }
+
   public async update(firstName, lastName, avatar, id) {
     const buscaStudent = await this.show(id)
     if (buscaStudent) {

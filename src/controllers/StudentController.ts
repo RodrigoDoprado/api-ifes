@@ -11,7 +11,14 @@ class StudentController {
     }
   }
 
-  public async getByIdStore(req: Request, res: Response) {}
+  public async showStudent(req: Request, res: Response) {
+    const { enroll } = req.params
+    try {
+      return res.status(200).json(await new StudentService().showEnroll(enroll))
+    } catch (e) {
+      res.status(404).json({ message: "Não há Aluno Cadastrado " + e })
+    }
+  }
 
   public async createStudent(req: Request, res: Response) {
     const { firstName, lastName, avatar, course } = await req.body
