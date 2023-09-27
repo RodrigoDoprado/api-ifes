@@ -9,7 +9,7 @@ class IndexRouter {
 
   private routesPublic() {
     this.routes.get("/", (req: Request, res: Response) =>
-      res.send({ message: "Api de uma Aplicação E-comecer" }),
+      res.send({ message: "Api de uma Aplicação IFES" }),
     )
     this.routes.get("/*", (req: Request, res: Response) =>
       res.send({ message: "Rota Não Existe" }),
