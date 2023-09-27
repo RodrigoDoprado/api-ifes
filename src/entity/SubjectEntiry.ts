@@ -10,6 +10,7 @@ import {
   JoinTable,
 } from "typeorm"
 import { CourseEntity } from "./CourseEntiry"
+import { TeacherEntity } from "./TeacherEntiry"
 
 @Entity("subjects") //materias
 export class SubjectEntiry {
@@ -17,13 +18,16 @@ export class SubjectEntiry {
   public id: string
 
   @Column({ type: "text", nullable: false })
+  public avatar: string
+
+  @Column({ type: "text", nullable: false })
   public title: string
 
   @Column({ type: "text", nullable: false })
   public acronym: string //sigla
 
-  // @Column({ type: "text", nullable: false })
-  // public period: string // periodo
+  @ManyToMany((type) => TeacherEntity, (subjects) => subjects)
+  public teachers: TeacherEntity[]
 
   @ManyToMany((type) => CourseEntity, (subjects) => subjects)
   @JoinTable({

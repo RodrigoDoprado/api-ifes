@@ -7,6 +7,7 @@ import StudentRouter from "./routers/StudentRouter"
 import IndexRouter from "./routers/IndexRouter"
 import CourseRouter from "./routers/CourseRouter"
 import TeacherRouter from "./routers/TeacherRouter"
+import SubjectRouter from "./routers/SubjectRouter"
 
 class App {
   public app: express.Application
@@ -40,6 +41,7 @@ class App {
     this.app.use(StudentRouter)
     this.app.use(TeacherRouter)
     this.app.use(CourseRouter)
+    this.app.use(SubjectRouter)
     this.app.use(IndexRouter)
   }
 }

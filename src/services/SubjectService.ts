@@ -1,32 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { subjectRepository } from "../repository/SubjectRepository"
-import CourseService from "./CourseService"
 
-class MatterService {
+class SubjectService {
   public async index() {
     return await subjectRepository.find()
   }
 
-  public async create(title, acronym, courses) {
-    if (await new CourseService().show(courses)) {
-      return await subjectRepository.save(
-        subjectRepository.create({ title, acronym, courses }),
-      )
-    }
+  public async create(title, acronym, avatar) {
+    return await subjectRepository.save(
+      subjectRepository.create({ title, acronym, avatar }),
+    )
   }
 
   public async show(id) {
     if (id != undefined) return await subjectRepository.findOneBy({ id })
   }
 
-  public async update(title, acronym, id) {
-    const buscaCurse = await this.show(id)
-    if (buscaCurse) {
+  public async update(title, acronym, id, avatar) {
+    const buscaSubject = await this.show(id)
+    if (buscaSubject) {
       const data = {
-        title: title ? title : buscaCurse.title,
-        acronym: acronym ? acronym : buscaCurse.acronym,
+        title: title ? title : buscaSubject.title,
+        acronym: acronym ? acronym : buscaSubject.acronym,
+        avatar: avatar ? avatar : buscaSubject.avatar,
       }
-      return await subjectRepository.update(buscaCurse.id, data)
+      return await subjectRepository.update(buscaSubject.id, data)
     }
   }
 
@@ -34,4 +32,4 @@ class MatterService {
     subjectRepository.delete(id)
   }
 }
-export default MatterService
+export default SubjectService

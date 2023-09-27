@@ -6,7 +6,10 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   DeleteDateColumn,
+  JoinTable,
+  ManyToMany,
 } from "typeorm"
+import { SubjectEntiry } from "./SubjectEntiry"
 
 @Entity("teachers")
 export class TeacherEntity {
@@ -24,6 +27,20 @@ export class TeacherEntity {
 
   @Column({ type: "text", nullable: false })
   public avatar: string
+
+  @ManyToMany((type) => SubjectEntiry, (teachers) => teachers)
+  @JoinTable({
+    name: "teacher_subject",
+    joinColumn: {
+      name: "teacher_id",
+      referencedColumnName: "id",
+    },
+    inverseJoinColumn: {
+      name: "subject_id",
+      referencedColumnName: "id",
+    },
+  })
+  public subjects: SubjectEntiry[]
 
   @CreateDateColumn()
   public created_at: Date // Creation date
