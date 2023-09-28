@@ -28,7 +28,10 @@ export class StudentEntity {
   @Column({ type: "text", nullable: false })
   public avatar: string
 
-  @ManyToOne((type) => CourseEntity, (students) => students, { eager: true })
+  @ManyToOne((type) => CourseEntity, (students) => students, {
+    eager: true,
+    nullable: false,
+  })
   @JoinColumn({ name: "course_id", referencedColumnName: "id" })
   public course: CourseEntity
 

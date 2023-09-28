@@ -9,19 +9,21 @@ class StudentService {
 
   public async create(enroll, firstName, lastName, avatar, course) {
     const buscaCurse = await new CurseService().show(course)
-    return await studentRepository.save(
-      await studentRepository.create({
-        enroll,
-        firstName,
-        lastName,
-        avatar,
-        course: buscaCurse,
-      }),
-    )
+    if (buscaCurse) {
+      return await studentRepository.save(
+        await studentRepository.create({
+          enroll,
+          firstName,
+          lastName,
+          avatar,
+          course: buscaCurse,
+        }),
+      )
+    }
   }
 
   public async show(id) {
-    return await studentRepository.findOneBy({ id })
+    if (id != undefined) return await studentRepository.findOneBy({ id })
   }
 
   public async showEnroll(enroll) {

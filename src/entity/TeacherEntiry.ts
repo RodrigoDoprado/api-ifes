@@ -8,8 +8,10 @@ import {
   DeleteDateColumn,
   JoinTable,
   ManyToMany,
+  OneToOne,
 } from "typeorm"
 import { SubjectEntiry } from "./SubjectEntiry"
+import { CourseEntity } from "./CourseEntiry"
 
 @Entity("teachers")
 export class TeacherEntity {
@@ -28,7 +30,10 @@ export class TeacherEntity {
   @Column({ type: "text", nullable: false })
   public avatar: string
 
-  @ManyToMany((type) => SubjectEntiry, (teachers) => teachers)
+  @ManyToMany((type) => SubjectEntiry, (teachers) => teachers, {
+    eager: true,
+    nullable: false,
+  })
   @JoinTable({
     name: "teacher_subject",
     joinColumn: {
@@ -41,6 +46,14 @@ export class TeacherEntity {
     },
   })
   public subjects: SubjectEntiry[]
+
+  @OneToOne(
+    (type) => CourseEntity,
+    (teacher) => {
+      teacher
+    },
+  )
+  public course: CourseEntity
 
   @CreateDateColumn()
   public created_at: Date // Creation date

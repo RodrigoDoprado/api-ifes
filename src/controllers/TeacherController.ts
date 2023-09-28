@@ -14,10 +14,16 @@ class TeacherController {
   public async getByIdTeacher(req: Request, res: Response) {}
 
   public async createTeacher(req: Request, res: Response) {
-    const { firstName, lastName, avatar } = await req.body
+    const { firstName, lastName, avatar, subject } = await req.body
     try {
       const enroll = await new TeacherService().generateEnroll()
-      await new TeacherService().create(enroll, firstName, lastName, avatar)
+      await new TeacherService().create(
+        enroll,
+        firstName,
+        lastName,
+        avatar,
+        subject,
+      )
       res.status(201).json({ message: "Professor Cadastrado com Sucesso" })
     } catch (e) {
       res

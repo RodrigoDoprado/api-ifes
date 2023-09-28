@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { courseRepository } from "../repository/CourseRepository"
+import TeacherService from "./TeacherService"
 
 class CourseService {
   public async index() {
     return await courseRepository.find()
   }
 
-  public async create(title, acronym) {
-    //verificar se o curso exites
-    return await courseRepository.save(
-      await courseRepository.create({ title, acronym }),
-    )
+  public async create(title, acronym, teacher) {
+    const buscaTeacher = await new TeacherService().show(teacher)
+    if (buscaTeacher) {
+      return await courseRepository.save(
+        courseRepository.create({ title, acronym, teacher: buscaTeacher }),
+      )
+    }
   }
 
   public async show(id) {

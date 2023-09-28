@@ -8,9 +8,11 @@ import {
   DeleteDateColumn,
   OneToMany,
   ManyToMany,
+  OneToOne,
 } from "typeorm"
 import { ClassEntity } from "./ClassEntiry"
 import { StudentEntity } from "./StudentEntiry"
+import { TeacherEntity } from "./TeacherEntiry"
 
 @Entity("courses") //curso
 export class CourseEntity {
@@ -31,6 +33,9 @@ export class CourseEntity {
 
   @ManyToMany((type) => CourseEntity, (courses) => courses)
   public subjects: CourseEntity[]
+
+  @OneToOne((type) => TeacherEntity, (course) => course, { nullable: false })
+  public teacher: TeacherEntity //professor orientador
 
   @CreateDateColumn()
   public created_at: Date // Creation date

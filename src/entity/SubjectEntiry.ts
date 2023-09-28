@@ -29,7 +29,9 @@ export class SubjectEntiry {
   @ManyToMany((type) => TeacherEntity, (subjects) => subjects)
   public teachers: TeacherEntity[]
 
-  @ManyToMany((type) => CourseEntity, (subjects) => subjects)
+  @ManyToMany((type) => CourseEntity, (subjects) => subjects, {
+    nullable: false,
+  })
   @JoinTable({
     name: "course_subject",
     joinColumn: {

@@ -13,10 +13,10 @@ class CourseController {
 
   public async getByIdCourse(req: Request, res: Response) {}
 
-  public async createStudent(req: Request, res: Response) {
-    const { title, acronym } = await req.body
+  public async createCourse(req: Request, res: Response) {
+    const { title, acronym, teacher } = await req.body
     try {
-      await new CourseService().create(title, acronym)
+      await new CourseService().create(title, acronym, teacher)
       res.status(201).json({ message: "Curso Cadastrado com Sucesso" })
     } catch (e) {
       res.status(404).json({ message: "Curso não Cadastrado com Sucesso " + e })

@@ -25,7 +25,10 @@ export class ClassEntity {
   @Column({ type: "text", nullable: false })
   public Shift: string //turno
 
-  @ManyToOne((type) => CourseEntity, (classes) => classes, { eager: true })
+  @ManyToOne((type) => CourseEntity, (classes) => classes, {
+    eager: true,
+    nullable: false,
+  })
   @JoinColumn({ name: "course_id", referencedColumnName: "id" })
   public course: CourseEntity
 
