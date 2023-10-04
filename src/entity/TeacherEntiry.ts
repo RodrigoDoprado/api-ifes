@@ -9,6 +9,7 @@ import {
   JoinTable,
   ManyToMany,
   OneToOne,
+  JoinColumn,
 } from "typeorm"
 import { SubjectEntiry } from "./SubjectEntiry"
 import { CourseEntity } from "./CourseEntiry"
@@ -47,13 +48,8 @@ export class TeacherEntity {
   })
   public subjects: SubjectEntiry[]
 
-  @OneToOne(
-    (type) => CourseEntity,
-    (teacher) => {
-      teacher
-    },
-  )
-  public course: CourseEntity
+  @OneToOne((type) => CourseEntity, (teacher) => teacher)
+  public course: CourseEntity //curso que firstName é o orientador
 
   @CreateDateColumn()
   public created_at: Date // Creation date

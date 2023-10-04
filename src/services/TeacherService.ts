@@ -4,11 +4,11 @@ import SubjectService from "./SubjectService"
 
 class TeacherService {
   public async index() {
-    return await teacherRepository.find()
+    return await teacherRepository.find({ relations: { subjects: true } })
   }
 
-  public async create(enroll, firstName, lastName, avatar, subject) {
-    const buscaSubject = await new SubjectService().show(subject)
+  public async create(enroll, firstName, lastName, avatar, subjects) {
+    const buscaSubject = await new SubjectService().show(subjects)
     if (buscaSubject) {
       return await teacherRepository.save(
         teacherRepository.create({
@@ -16,7 +16,7 @@ class TeacherService {
           firstName,
           lastName,
           avatar,
-          subjects: subject,
+          subjects,
         }),
       )
     }
@@ -26,13 +26,14 @@ class TeacherService {
     if (id != undefined) return await teacherRepository.findOneBy({ id })
   }
 
-  public async update(firstName, lastName, avatar, id) {
+  public async update(firstName, lastName, avatar, id, subject) {
     const buscaStudent = await this.show(id)
     if (buscaStudent) {
       const data = {
         firstName: firstName ? firstName : buscaStudent.firstName,
         lastName: lastName ? lastName : buscaStudent.lastName,
         avatar: avatar ? avatar : buscaStudent.avatar,
+        subjects: subject ? subject : buscaStudent.subjects,
       }
       return await teacherRepository.update(buscaStudent.id, data)
     }

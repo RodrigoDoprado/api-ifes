@@ -29,7 +29,6 @@ export class StudentEntity {
   public avatar: string
 
   @ManyToOne((type) => CourseEntity, (students) => students, {
-    eager: true,
     nullable: false,
   })
   @JoinColumn({ name: "course_id", referencedColumnName: "id" })

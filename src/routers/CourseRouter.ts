@@ -12,7 +12,7 @@ class CourseRouter {
     this.routes.get("/courses", new CourseController().indexCourse)
     this.routes.post("/course", new CourseController().createCourse)
     this.routes.put("/course/:id", new CourseController().updateCourse)
-    this.routes.delete("/course", new CourseController().deleteCourse)
+    this.routes.delete("/course/:id", new CourseController().deleteCourse)
   }
 }
 

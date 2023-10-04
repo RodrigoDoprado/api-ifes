@@ -9,6 +9,7 @@ import {
   OneToMany,
   ManyToMany,
   OneToOne,
+  JoinColumn,
 } from "typeorm"
 import { ClassEntity } from "./ClassEntiry"
 import { StudentEntity } from "./StudentEntiry"
@@ -20,21 +21,25 @@ export class CourseEntity {
   public id: string
 
   @Column({ type: "text", nullable: false })
+  public avatar: string
+
+  @Column({ type: "text", nullable: false })
   public title: string
 
   @Column({ type: "text", nullable: false })
   public acronym: string //sigla
 
-  @OneToMany((type) => ClassEntity, (course) => course)
+  @OneToMany((type) => ClassEntity, (course) => course, { nullable: false })
   public classes: ClassEntity[]
 
-  @OneToMany((type) => StudentEntity, (course) => course)
+  @OneToMany((type) => StudentEntity, (course) => course, { nullable: false })
   public students: StudentEntity[]
 
-  @ManyToMany((type) => CourseEntity, (courses) => courses)
+  @ManyToMany((type) => CourseEntity, (courses) => courses, { nullable: false })
   public subjects: CourseEntity[]
 
   @OneToOne((type) => TeacherEntity, (course) => course, { nullable: false })
+  @JoinColumn({ name: "teacher_id", referencedColumnName: "id" })
   public teacher: TeacherEntity //professor orientador
 
   @CreateDateColumn()

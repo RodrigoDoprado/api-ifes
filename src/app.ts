@@ -1,4 +1,4 @@
-// import "express-async-errors"
+import "express-async-errors"
 import express from "express"
 import morgan from "morgan"
 import bodyParser from "body-parser"
@@ -8,6 +8,7 @@ import IndexRouter from "./routers/IndexRouter"
 import CourseRouter from "./routers/CourseRouter"
 import TeacherRouter from "./routers/TeacherRouter"
 import SubjectRouter from "./routers/SubjectRouter"
+import { ErrorMiddleware } from "./middlewares/ErrorMiddlewares"
 
 class App {
   public app: express.Application
@@ -33,7 +34,7 @@ class App {
     this.app.use(morgan("dev"))
     this.app.use(cors())
     this.app.use(express.urlencoded({ extended: true }))
-    // this.app.use(ErrorMiddleware)
+    this.app.use(ErrorMiddleware)
   }
 
   private routes() {

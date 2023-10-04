@@ -4,7 +4,7 @@ import CurseService from "./CourseService"
 
 class StudentService {
   public async index() {
-    return await studentRepository.find()
+    return await studentRepository.find({ relations: { course: true } })
   }
 
   public async create(enroll, firstName, lastName, avatar, course) {

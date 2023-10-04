@@ -7,14 +7,14 @@ class TeacherController {
     try {
       return res.status(200).json(await new TeacherService().index())
     } catch (e) {
-      res.status(404).json({ message: "Não há Professores Cadastrado " + e })
+      res.status(404).json({ message: "Não há Professores Cadastrado!" })
     }
   }
 
   public async getByIdTeacher(req: Request, res: Response) {}
 
   public async createTeacher(req: Request, res: Response) {
-    const { firstName, lastName, avatar, subject } = await req.body
+    const { firstName, lastName, avatar, subjects } = await req.body
     try {
       const enroll = await new TeacherService().generateEnroll()
       await new TeacherService().create(
@@ -22,26 +22,24 @@ class TeacherController {
         firstName,
         lastName,
         avatar,
-        subject,
+        subjects,
       )
-      res.status(201).json({ message: "Professor Cadastrado com Sucesso" })
+      res.status(201).json({ message: "Professor Cadastrado com Sucesso!" })
     } catch (e) {
-      res
-        .status(404)
-        .json({ message: "Professor não Cadastrado com Sucesso " + e })
+      res.status(404).json({ message: "Professor não Cadastrado com Sucesso!" })
     }
   }
 
   public async updateTeacher(req: Request, res: Response) {
-    const { firstName, lastName, avatar } = await req.body
+    const { firstName, lastName, avatar, subject } = await req.body
     const { id } = req.params
     try {
-      new TeacherService().update(firstName, lastName, avatar, id)
+      new TeacherService().update(firstName, lastName, avatar, id, subject)
       return res
         .status(200)
         .json({ message: "Professor Alterado com Sucesso!" })
     } catch (e) {
-      return res.status(404).json({ message: "Professor não Alterado " + e })
+      return res.status(404).json({ message: "Professor não Alterado!" })
     }
   }
 
@@ -53,7 +51,7 @@ class TeacherController {
         .status(200)
         .json({ message: "Professor deletado com Sucesso!" })
     } catch (e) {
-      return res.status(404).json({ message: "Professor não Deletado " + e })
+      return res.status(404).json({ message: "Professor não Deletado!" })
     }
   }
 }
