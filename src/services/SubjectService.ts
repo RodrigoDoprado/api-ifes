@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { subjectRepository } from "../repository/SubjectRepository"
+import PeriodService from "./PeriodService"
 
 class SubjectService {
   public async index() {
     return await subjectRepository.find()
   }
 
-  public async create(title, acronym, avatar) {
-    return await subjectRepository.save(
-      subjectRepository.create({ title, acronym, avatar }),
-    )
+  public async create(title, acronym, avatar, period) {
+    if (await new PeriodService().show(period)) {
+      return await subjectRepository.save(
+        subjectRepository.create({ title, acronym, avatar, period }),
+      )
+    }
   }
 
   public async show(id) {

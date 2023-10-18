@@ -19,7 +19,7 @@ export class CourseEntity {
   @PrimaryGeneratedColumn()
   public id: string
 
-  @Column({ type: "text", nullable: false })
+  @Column({ type: "text", nullable: true })
   public avatar: string
 
   @Column({ type: "text", nullable: false })
@@ -28,14 +28,14 @@ export class CourseEntity {
   @Column({ type: "text", nullable: false })
   public acronym: string //sigla
 
-  @OneToMany((type) => PeriodEntity, (course) => course, { nullable: false })
+  @OneToMany((type) => PeriodEntity, (course) => course)
   public periods: PeriodEntity[] //períodos
 
-  @OneToMany((type) => StudentEntity, (course) => course, { nullable: false })
+  @OneToMany((type) => StudentEntity, (course) => course)
   public students: StudentEntity[]
 
   @OneToOne((type) => TeacherEntity, (course) => course, { nullable: false })
-  @JoinColumn({ name: "coordinator", referencedColumnName: "id" })
+  @JoinColumn({ name: "coordinator_id", referencedColumnName: "id" })
   public teacher: TeacherEntity //professor coordenador
 
   @CreateDateColumn()

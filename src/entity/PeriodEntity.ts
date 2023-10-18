@@ -22,6 +22,6 @@ export class PeriodEntity {
   @JoinColumn({ name: "course_id", referencedColumnName: "id" })
   public course: CourseEntity
 
-  @OneToMany((type) => SubjectEntiry, (period) => period, { nullable: false })
+  @OneToMany((type) => SubjectEntiry, (period) => period)
   public subjects: SubjectEntiry[]
 }
