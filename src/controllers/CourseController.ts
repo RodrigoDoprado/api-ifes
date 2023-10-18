@@ -11,18 +11,21 @@ class CourseController {
     }
   }
 
-  public async getByIdCourse(req: Request, res: Response) {}
+  public async getCourse(req: Request, res: Response) {
+    const { acronym } = req.params
+    try {
+      return res
+        .status(200)
+        .json(await new CourseService().showAcronym(acronym))
+    } catch (e) {
+      res.status(404).json({ message: "Não há Cursos Cadastrado!" })
+    }
+  }
 
   public async createCourse(req: Request, res: Response) {
-    const { title, acronym, teacher, subjects, avatar } = await req.body
+    const { title, acronym, teacher, avatar } = await req.body
     try {
-      await new CourseService().create(
-        title,
-        acronym,
-        teacher,
-        subjects,
-        avatar,
-      )
+      await new CourseService().create(title, acronym, teacher, avatar)
       res.status(201).json({ message: "Curso Cadastrado com Sucesso" })
     } catch (e) {
       res.status(404).json({ message: "Curso não Cadastrado com Sucesso!" })
@@ -30,10 +33,10 @@ class CourseController {
   }
 
   public async updateCourse(req: Request, res: Response) {
-    const { title, acronym, subjects, avatar } = await req.body
+    const { title, acronym, avatar } = await req.body
     const { id } = req.params
     try {
-      new CourseService().update(title, acronym, id, avatar, subjects)
+      new CourseService().update(title, acronym, id, avatar)
       return res.status(200).json({ message: "Curso Alterado com Sucesso!" })
     } catch (e) {
       return res.status(404).json({ message: "Curso não Alterado!" })
@@ -42,12 +45,12 @@ class CourseController {
 
   async deleteCourse(req: Request, res: Response) {
     const { id } = req.params
-    // try {
-    new CourseService().delete(id)
-    // return res.status(200).json({ message: "Curso deletado com Sucesso!" })
-    // } catch (e) {
-    //   return res.status(404).json({ message: "Curso não Deletado " + e })
-    // }
+    try {
+      new CourseService().delete(id)
+      return res.status(200).json({ message: "Curso deletado com Sucesso!" })
+    } catch (e) {
+      return res.status(404).json({ message: "Curso não Deletado!" })
+    }
   }
 }
 export default CourseController

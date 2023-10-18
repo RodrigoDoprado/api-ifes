@@ -14,16 +14,10 @@ class TeacherController {
   public async getByIdTeacher(req: Request, res: Response) {}
 
   public async createTeacher(req: Request, res: Response) {
-    const { firstName, lastName, avatar, subjects } = await req.body
+    const { firstName, lastName, avatar } = await req.body
     try {
       const enroll = await new TeacherService().generateEnroll()
-      await new TeacherService().create(
-        enroll,
-        firstName,
-        lastName,
-        avatar,
-        subjects,
-      )
+      await new TeacherService().create(enroll, firstName, lastName, avatar)
       res.status(201).json({ message: "Professor Cadastrado com Sucesso!" })
     } catch (e) {
       res.status(404).json({ message: "Professor não Cadastrado com Sucesso!" })
@@ -31,10 +25,10 @@ class TeacherController {
   }
 
   public async updateTeacher(req: Request, res: Response) {
-    const { firstName, lastName, avatar, subject } = await req.body
+    const { firstName, lastName, avatar } = await req.body
     const { id } = req.params
     try {
-      new TeacherService().update(firstName, lastName, avatar, id, subject)
+      new TeacherService().update(firstName, lastName, avatar, id)
       return res
         .status(200)
         .json({ message: "Professor Alterado com Sucesso!" })

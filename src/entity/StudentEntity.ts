@@ -9,12 +9,15 @@ import {
   JoinColumn,
   ManyToOne,
 } from "typeorm"
-import { CourseEntity } from "./CourseEntiry"
+import { CourseEntity } from "./CourseEntity"
 
 @Entity("students")
 export class StudentEntity {
   @PrimaryGeneratedColumn()
   public id: string
+
+  @Column({ type: "text", nullable: false })
+  public avatar: string
 
   @Column({ type: "text", nullable: false })
   public enroll: string //matricula
@@ -24,9 +27,6 @@ export class StudentEntity {
 
   @Column({ type: "text", nullable: false })
   public lastName: string
-
-  @Column({ type: "text", nullable: false })
-  public avatar: string
 
   @ManyToOne((type) => CourseEntity, (students) => students, {
     nullable: false,

@@ -7,10 +7,10 @@ import {
   PrimaryGeneratedColumn,
   DeleteDateColumn,
   ManyToMany,
-  JoinTable,
+  JoinColumn,
+  ManyToOne,
 } from "typeorm"
-import { CourseEntity } from "./CourseEntiry"
-import { TeacherEntity } from "./TeacherEntiry"
+import { PeriodEntity } from "./PeriodEntity"
 
 @Entity("subjects") //materias
 export class SubjectEntiry {
@@ -26,24 +26,11 @@ export class SubjectEntiry {
   @Column({ type: "text", nullable: false })
   public acronym: string //sigla
 
-  @ManyToMany((type) => TeacherEntity, (subjects) => subjects)
-  public teachers: TeacherEntity[]
-
-  @ManyToMany((type) => CourseEntity, (subjects) => subjects, {
+  @ManyToOne((type) => PeriodEntity, (subjects) => subjects, {
     nullable: false,
   })
-  @JoinTable({
-    name: "course_subject",
-    joinColumn: {
-      name: "course_id",
-      referencedColumnName: "id",
-    },
-    inverseJoinColumn: {
-      name: "subject_id",
-      referencedColumnName: "id",
-    },
-  })
-  public courses: CourseEntity[]
+  @JoinColumn({ name: "period_id", referencedColumnName: "id" })
+  public period: PeriodEntity
 
   @CreateDateColumn()
   public created_at: Date // Creation date

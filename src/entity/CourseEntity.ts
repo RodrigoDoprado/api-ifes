@@ -7,13 +7,12 @@ import {
   PrimaryGeneratedColumn,
   DeleteDateColumn,
   OneToMany,
-  ManyToMany,
   OneToOne,
   JoinColumn,
 } from "typeorm"
-import { ClassEntity } from "./ClassEntiry"
-import { StudentEntity } from "./StudentEntiry"
-import { TeacherEntity } from "./TeacherEntiry"
+import { StudentEntity } from "./StudentEntity"
+import { TeacherEntity } from "./TeacherEntity"
+import { PeriodEntity } from "./PeriodEntity"
 
 @Entity("courses") //curso
 export class CourseEntity {
@@ -29,18 +28,15 @@ export class CourseEntity {
   @Column({ type: "text", nullable: false })
   public acronym: string //sigla
 
-  @OneToMany((type) => ClassEntity, (course) => course, { nullable: false })
-  public classes: ClassEntity[]
+  @OneToMany((type) => PeriodEntity, (course) => course, { nullable: false })
+  public periods: PeriodEntity[] //períodos
 
   @OneToMany((type) => StudentEntity, (course) => course, { nullable: false })
   public students: StudentEntity[]
 
-  @ManyToMany((type) => CourseEntity, (courses) => courses, { nullable: false })
-  public subjects: CourseEntity[]
-
   @OneToOne((type) => TeacherEntity, (course) => course, { nullable: false })
-  @JoinColumn({ name: "teacher_id", referencedColumnName: "id" })
-  public teacher: TeacherEntity //professor orientador
+  @JoinColumn({ name: "coordinator", referencedColumnName: "id" })
+  public teacher: TeacherEntity //professor coordenador
 
   @CreateDateColumn()
   public created_at: Date // Creation date

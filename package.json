@@ -30,6 +30,7 @@
       "dev": "ts-node-dev --respawn --ignore-watch node_modules --files --no-notify src/server.ts",
       "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migration/default",
       "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
+      "vercel-build":"",
       "build": "tsc",
       "start": "ts-node ./build/server.js",
       "husky": "husky install",

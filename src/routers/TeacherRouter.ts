@@ -12,7 +12,7 @@ class TeacherRouter {
     this.routes.get("/teachers", new TeacherController().indexTeacher)
     this.routes.post("/teacher", new TeacherController().createTeacher)
     this.routes.put("/teacher/:id", new TeacherController().updateTeacher)
-    this.routes.delete("/teacher", new TeacherController().deleteTeacher)
+    this.routes.delete("/teacher/:id", new TeacherController().deleteTeacher)
   }
 }
 

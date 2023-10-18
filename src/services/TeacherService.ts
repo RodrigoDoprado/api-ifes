@@ -1,39 +1,33 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { teacherRepository } from "../repository/TeacherRepository"
-import SubjectService from "./SubjectService"
 
 class TeacherService {
   public async index() {
-    return await teacherRepository.find({ relations: { subjects: true } })
+    return await teacherRepository.find() /* { relations: { course:true } } */
   }
 
-  public async create(enroll, firstName, lastName, avatar, subjects) {
-    const buscaSubject = await new SubjectService().show(subjects)
-    if (buscaSubject) {
-      return await teacherRepository.save(
-        teacherRepository.create({
-          enroll,
-          firstName,
-          lastName,
-          avatar,
-          subjects,
-        }),
-      )
-    }
+  public async create(enroll, firstName, lastName, avatar) {
+    return await teacherRepository.save(
+      teacherRepository.create({
+        enroll,
+        firstName,
+        lastName,
+        avatar,
+      }),
+    )
   }
 
   public async show(id) {
     if (id != undefined) return await teacherRepository.findOneBy({ id })
   }
 
-  public async update(firstName, lastName, avatar, id, subject) {
+  public async update(firstName, lastName, avatar, id) {
     const buscaStudent = await this.show(id)
     if (buscaStudent) {
       const data = {
         firstName: firstName ? firstName : buscaStudent.firstName,
         lastName: lastName ? lastName : buscaStudent.lastName,
         avatar: avatar ? avatar : buscaStudent.avatar,
-        subjects: subject ? subject : buscaStudent.subjects,
       }
       return await teacherRepository.update(buscaStudent.id, data)
     }
