@@ -9,7 +9,7 @@ class PeriodRouter {
   }
 
   private metodRoutes() {
-    this.routes.get("/periods/:course", new PeriodController().indexPeriod)
+    this.routes.get("/periods/:acronym", new PeriodController().indexPeriod)
     this.routes.get("/period/:acronym", new PeriodController().getPeriod)
     this.routes.post("/period", new PeriodController().createPeriod)
     this.routes.put("/period/:id", new PeriodController().updatePeriod)

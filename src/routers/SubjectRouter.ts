@@ -9,7 +9,7 @@ class SubjectRouter {
   }
 
   private metodRoutes() {
-    this.routes.get("/subjects", new SubjectController().indexSubject)
+    this.routes.get("/subjects/:title", new SubjectController().indexSubject)
     this.routes.post("/subject", new SubjectController().createSubject)
     this.routes.put("/subject/:id", new SubjectController().updateSubject)
     this.routes.delete("/subject", new SubjectController().deleteSubject)

@@ -3,8 +3,17 @@ import { periodRepository } from "../repository/PeriodRepository"
 import CourseService from "./CourseService"
 
 class PeriodService {
-  public async index(course) {
-    return await periodRepository.find({ where: { course } })
+  public async index(acronym) {
+    return await periodRepository.find({
+      relations: {
+        course: true,
+      },
+      where: {
+        course: {
+          acronym,
+        },
+      },
+    })
   }
 
   public async create(title, course) {

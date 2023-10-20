@@ -4,9 +4,9 @@ import PeriodService from "../services/PeriodService"
 
 class PeriodController {
   public async indexPeriod(req: Request, res: Response) {
-    const { course } = req.params
+    const { acronym } = req.params
     try {
-      return res.status(200).json(await new PeriodService().index(course))
+      return res.status(200).json(await new PeriodService().index(acronym))
     } catch (e) {
       res.status(404).json({ message: "Não há Periodos Cadastrados!" })
     }
@@ -22,6 +22,14 @@ class PeriodController {
   }
   public async getPeriod(req: Request, res: Response) {}
   public async updatePeriod(req: Request, res: Response) {}
-  public async deletePeriod(req: Request, res: Response) {}
+  public async deletePeriod(req: Request, res: Response) {
+    const { id } = req.params
+    try {
+      new PeriodService().delete(id)
+      return res.status(200).json({ message: "Periodo deletado com Sucesso!" })
+    } catch (e) {
+      return res.status(404).json({ message: "Periodo não Deletado!" })
+    }
+  }
 }
 export default PeriodController
