@@ -3,20 +3,21 @@ import { subjectRepository } from "../repository/SubjectRepository"
 import PeriodService from "./PeriodService"
 
 class SubjectService {
-  public async index(title) {
+  public async index(id) {
     return await subjectRepository.find({
       relations: {
         period: true,
       },
       where: {
         period: {
-          title,
+          id,
         },
       },
     })
   }
 
   public async create(title, acronym, avatar, period) {
+    console.log(title, acronym, avatar, period)
     if (await new PeriodService().show(period)) {
       return await subjectRepository.save(
         subjectRepository.create({ title, acronym, avatar, period }),

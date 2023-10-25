@@ -4,9 +4,9 @@ import SubjectService from "../services/SubjectService"
 
 class SubjectController {
   public async indexSubject(req: Request, res: Response) {
-    const { title } = req.params
+    const { id } = req.params
     try {
-      return res.status(200).json(await new SubjectService().index(title))
+      return res.status(200).json(await new SubjectService().index(id))
     } catch (e) {
       res.status(404).json({ message: "Não há Materias Cadastrado!" })
     }

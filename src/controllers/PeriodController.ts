@@ -4,7 +4,7 @@ import PeriodService from "../services/PeriodService"
 
 class PeriodController {
   public async indexPeriod(req: Request, res: Response) {
-    const { acronym } = req.params
+    const { acronym } = await req.params
     try {
       return res.status(200).json(await new PeriodService().index(acronym))
     } catch (e) {
