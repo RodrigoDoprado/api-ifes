@@ -28,8 +28,8 @@ export class StudentEntity {
   @Column({ type: "text", nullable: false })
   public lastName: string
 
-  @Column({ type: "text", nullable: false })
-  public email: string
+  // @Column({ type: "text", nullable: false })
+  // public email: string
 
   @ManyToOne((type) => CourseEntity, (students) => students, {
     nullable: false,
