@@ -27,6 +27,9 @@ export class TeacherEntity {
   @Column({ type: "text", nullable: false })
   public lastName: string
 
+  @Column({ type: "text", nullable: false })
+  public email: string
+
   @OneToOne((type) => CourseEntity, (teacher) => teacher)
   public course: CourseEntity //curso que firstName é o coordenador
 

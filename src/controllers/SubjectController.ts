@@ -25,10 +25,10 @@ class SubjectController {
   }
 
   public async updateSubject(req: Request, res: Response) {
-    const { title, acronym, avatar } = await req.body
+    const { title, acronym, avatar, period } = await req.body
     const { id } = req.params
     try {
-      new SubjectService().update(title, acronym, id, avatar)
+      new SubjectService().update(title, acronym, id, avatar, period)
       return res.status(200).json({ message: "Materia Alterado com Sucesso!" })
     } catch (e) {
       return res.status(404).json({ message: "Materia não Alterado!" })
