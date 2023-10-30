@@ -17,8 +17,25 @@ class TeacherService {
     )
   }
 
+  public async showSignIn(enroll) {
+    if (enroll != undefined)
+      return await teacherRepository.findOneBy({ enroll })
+  }
+
   public async show(id) {
     if (id != undefined) return await teacherRepository.findOneBy({ id })
+  }
+
+  public async showEnroll(enroll) {
+    if (enroll != undefined)
+      return await teacherRepository.findOne({
+        relations: {
+          course: true,
+        },
+        where: {
+          enroll,
+        },
+      })
   }
 
   public async update(firstName, lastName, avatar, id) {

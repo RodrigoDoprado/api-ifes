@@ -22,12 +22,25 @@ class StudentService {
     }
   }
 
+  public async showSignIn(enroll) {
+    if (enroll != undefined)
+      return await studentRepository.findOneBy({ enroll })
+  }
+
   public async show(id) {
     if (id != undefined) return await studentRepository.findOneBy({ id })
   }
 
   public async showEnroll(enroll) {
-    return await studentRepository.findOneBy({ enroll })
+    if (enroll != undefined)
+      return await studentRepository.findOne({
+        relations: {
+          course: true,
+        },
+        where: {
+          enroll,
+        },
+      })
   }
 
   public async update(firstName, lastName, avatar, id) {

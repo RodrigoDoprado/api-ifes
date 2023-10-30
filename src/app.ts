@@ -10,6 +10,7 @@ import TeacherRouter from "./routers/TeacherRouter"
 import SubjectRouter from "./routers/SubjectRouter"
 import { ErrorMiddleware } from "./middlewares/ErrorMiddlewares"
 import PeriodRouter from "./routers/PeriodRouter"
+import AuthRouter from "./routers/AuthRouter"
 
 class App {
   public app: express.Application
@@ -45,6 +46,7 @@ class App {
     this.app.use(CourseRouter)
     this.app.use(SubjectRouter)
     this.app.use(PeriodRouter)
+    this.app.use(AuthRouter)
     this.app.use(IndexRouter)
   }
 }
