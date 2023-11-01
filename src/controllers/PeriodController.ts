@@ -21,7 +21,16 @@ class PeriodController {
     }
   }
   public async getPeriod(req: Request, res: Response) {}
-  public async updatePeriod(req: Request, res: Response) {}
+  public async updatePeriod(req: Request, res: Response) {
+    const { title } = await req.body
+    const { id } = req.params
+    try {
+      await new PeriodService().update(title, id)
+      res.status(200).json({ message: "Periodo Alterado com Sucesso" })
+    } catch (e) {
+      res.status(404).json({ message: "Periodo não Alterado com Sucesso!" })
+    }
+  }
   public async deletePeriod(req: Request, res: Response) {
     const { id } = req.params
     try {

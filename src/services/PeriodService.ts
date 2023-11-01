@@ -28,10 +28,12 @@ class PeriodService {
     if (id != undefined) return await periodRepository.findOneBy({ id })
   }
 
-  public async update(id) {
+  public async update(title, id) {
     const buscaCurse = await this.show(id)
     if (buscaCurse) {
-      const data = {}
+      const data = {
+        title: title ? title : buscaCurse.title,
+      }
       return await periodRepository.update(buscaCurse.id, data)
     }
   }
