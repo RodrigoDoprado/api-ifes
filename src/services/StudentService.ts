@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { studentRepository } from "../repository/StudentRepository"
+import CourseService from "./CourseService"
 import CurseService from "./CourseService"
 
 class StudentService {
@@ -43,13 +44,15 @@ class StudentService {
       })
   }
 
-  public async update(firstName, lastName, avatar, id) {
+  public async update(firstName, lastName, avatar, id, course) {
     const buscaStudent = await this.show(id)
-    if (buscaStudent) {
+    const buscaCourse = await new CourseService().show(course)
+    if (buscaStudent && buscaCourse) {
       const data = {
         firstName: firstName ? firstName : buscaStudent.firstName,
         lastName: lastName ? lastName : buscaStudent.lastName,
         avatar: avatar ? avatar : buscaStudent.avatar,
+        course: course ? course : buscaStudent.course,
       }
       return await studentRepository.update(buscaStudent.id, data)
     }

@@ -35,18 +35,16 @@ class CourseService {
 
   public async update(title, acronym, id, avatar, teacher) {
     const buscaCurse = await this.show(id)
-    if (buscaCurse) {
-      if (await new TeacherService().show(teacher)) {
-        const data = {
-          title: title ? title : buscaCurse.title,
-          acronym: acronym ? acronym : buscaCurse.acronym,
-          avatar: avatar ? avatar : buscaCurse.avatar,
-          teacher: teacher ? teacher : buscaCurse.teacher,
-        }
-        return await courseRepository.update(buscaCurse.id, data)
+    const buscaTeacher = await new TeacherService().show(teacher)
+    if (buscaCurse && buscaTeacher) {
+      const data = {
+        title: title ? title : buscaCurse.title,
+        acronym: acronym ? acronym : buscaCurse.acronym,
+        avatar: avatar ? avatar : buscaCurse.avatar,
+        teacher: teacher ? teacher : buscaCurse.teacher,
       }
+      return await courseRepository.update(buscaCurse.id, data)
     }
-    return null
   }
 
   public delete(id: any) {

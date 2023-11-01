@@ -38,10 +38,10 @@ class StudentController {
   }
 
   public async updateStudent(req: Request, res: Response) {
-    const { firstName, lastName, avatar } = await req.body
+    const { firstName, lastName, avatar, course } = await req.body
     const { id } = req.params
     try {
-      new StudentService().update(firstName, lastName, avatar, id)
+      new StudentService().update(firstName, lastName, avatar, id, course)
       return res.status(200).json({ message: "Aluno Alterado com Sucesso!" })
     } catch (e) {
       return res.status(404).json({ message: "Aluno não Alterado " + e })
