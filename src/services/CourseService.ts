@@ -10,6 +10,7 @@ class CourseService {
   public async create(title, acronym, teacher, avatar) {
     const buscaTeacher = await new TeacherService().show(teacher)
     if (buscaTeacher) {
+      // console.log(title, acronym, teacher, avatar)
       return await courseRepository.save(
         courseRepository.create({
           avatar,

@@ -29,9 +29,9 @@ class TeacherService {
   public async showEnroll(enroll) {
     if (enroll != undefined)
       return await teacherRepository.findOne({
-        relations: {
-          course: true,
-        },
+        // relations: {
+        //   course: true,
+        // },
         where: {
           enroll,
         },

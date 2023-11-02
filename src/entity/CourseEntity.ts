@@ -19,7 +19,7 @@ export class CourseEntity {
   @PrimaryGeneratedColumn()
   public id: string
 
-  @Column({ type: "text", nullable: true })
+  @Column({ type: "text", nullable: false })
   public avatar: string
 
   @Column({ type: "text", nullable: false })

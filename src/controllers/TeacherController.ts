@@ -11,7 +11,14 @@ class TeacherController {
     }
   }
 
-  public async getByIdTeacher(req: Request, res: Response) {}
+  public async showTeacher(req: Request, res: Response) {
+    const { enroll } = req.params
+    try {
+      return res.status(200).json(await new TeacherService().showEnroll(enroll))
+    } catch (e) {
+      res.status(404).json({ message: "Não há Professor Cadastrado!" })
+    }
+  }
 
   public async createTeacher(req: Request, res: Response) {
     const { firstName, lastName, avatar } = await req.body
