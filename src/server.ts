@@ -14,3 +14,7 @@ AppDataSource.initialize()
   .catch((e) => {
     console.log(e + " Não há conexão com o banco de dados !!!")
   })
+
+{
+  /*"vercel-build":"npm run migration:run",*/
+}
