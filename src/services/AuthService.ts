@@ -15,17 +15,17 @@ class AuthService {
         process.env.JWT_OFFICEB ?? "",
         { expiresIn: "1h" },
       )
-      return token
+      return { token, user: "student" }
     } else if (buscaTeacher != undefined) {
       const token = jwt.sign(
         { id: buscaTeacher.id },
         process.env.JWT_OFFICEB ?? "",
         { expiresIn: "1h" },
       )
-      return token
+      return { token, user: "teacher" }
     } else {
       const token = "asfkjkajsdfaç"
-      return token
+      return { token, user: "" }
     }
   }
 }

@@ -6,8 +6,7 @@ class AuthController {
   public async createSignIn(req: Request, res: Response) {
     const { email } = await req.body
     try {
-      const token = await new AuthService().signIn(email)
-      res.status(200).json({ token })
+      res.status(200).json(await new AuthService().signIn(email))
     } catch (e) {
       res.status(404).json({ message: "Login ou Senha Invalido!" })
     }
