@@ -27,15 +27,8 @@ export default async function AuthMiddleware(
       token,
       process.env.JWT_OFFICEB ?? "",
     ) as TokenPayload
-    const buscaStudent = await new StudentService().showEnroll(id)
-    req.student = buscaStudent
-
-    if (!buscaStudent) {
-      const buscaTeacher = await new TeacherService().showEnroll(id)
-      req.teacher = buscaTeacher
-      return next()
-    }
-
+    req.student = await new StudentService().showEnroll(id)
+    req.teacher = await new TeacherService().showEnroll(id)
     return next()
   } catch (e) {
     throw new UnauthorizedError("Sessão não Autorizado")
