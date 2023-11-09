@@ -12,9 +12,8 @@ class TeacherController {
   }
 
   public async showTeacher(req: Request, res: Response) {
-    const { enroll } = req.params
     try {
-      return res.status(200).json(await new TeacherService().showEnroll(enroll))
+      return res.status(200).json({ store: req.teacher })
     } catch (e) {
       res.status(404).json({ message: "Não há Professor Cadastrado!" })
     }

@@ -1,5 +1,6 @@
 import { Router } from "express"
 import StudentController from "../controllers/StudentController"
+import AuthMiddleware from "../middlewares/AuthMiddleware"
 
 class StudentRouter {
   public routes = Router()
@@ -10,7 +11,11 @@ class StudentRouter {
 
   private metodRoutes() {
     this.routes.get("/students", new StudentController().indexStudent)
-    this.routes.get("/student/:enroll", new StudentController().showStudent)
+    this.routes.get(
+      "/student/",
+      AuthMiddleware,
+      new StudentController().showStudent,
+    )
     this.routes.post("/student", new StudentController().createStudent)
     this.routes.put("/student/:id", new StudentController().updateStudent)
     this.routes.delete("/student/:id", new StudentController().deleteStudent)

@@ -11,14 +11,14 @@ class AuthService {
 
     if (buscaStudent != undefined) {
       const token = jwt.sign(
-        { id: buscaStudent.id },
+        { id: buscaStudent.enroll },
         process.env.JWT_OFFICEB ?? "",
         { expiresIn: "1h" },
       )
       return { token, user: "student" }
     } else if (buscaTeacher != undefined) {
       const token = jwt.sign(
-        { id: buscaTeacher.id },
+        { id: buscaTeacher.enroll },
         process.env.JWT_OFFICEB ?? "",
         { expiresIn: "1h" },
       )

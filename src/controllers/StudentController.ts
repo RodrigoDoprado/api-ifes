@@ -12,9 +12,8 @@ class StudentController {
   }
 
   public async showStudent(req: Request, res: Response) {
-    const { enroll } = req.params
     try {
-      return res.status(200).json(await new StudentService().showEnroll(enroll))
+      return res.status(200).json({ store: req.student })
     } catch (e) {
       res.status(404).json({ message: "Não há Aluno Cadastrado!" })
     }
