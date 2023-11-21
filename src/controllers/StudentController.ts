@@ -13,7 +13,7 @@ class StudentController {
 
   public async showStudent(req: Request, res: Response) {
     try {
-      return res.status(200).json({ store: req.student })
+      return res.status(200).json({ student: req.student })
     } catch (e) {
       res.status(404).json({ message: "Não há Aluno Cadastrado!" })
     }
