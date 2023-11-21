@@ -12,7 +12,7 @@ class TeacherController {
   }
 
   public async showTeacher(req: Request, res: Response) {
-    return res.status(200).json({ store: req.teacher })
+    return res.status(200).json({ teacher: req.teacher })
   }
 
   public async createTeacher(req: Request, res: Response) {
