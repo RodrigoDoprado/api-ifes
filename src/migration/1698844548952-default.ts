@@ -5,9 +5,6 @@ export class Default1698844548952 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "classes" ("id" SERIAL NOT NULL, "title" text NOT NULL, "acronym" text NOT NULL, "Shift" text NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, CONSTRAINT "PK_e207aa15404e9b2ce35910f9f7f" PRIMARY KEY ("id"))`,
-    )
-    await queryRunner.query(
       `CREATE TABLE "students" ("id" SERIAL NOT NULL, "avatar" text NOT NULL, "enroll" text NOT NULL, "firstName" text NOT NULL, "lastName" text NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, "course_id" integer NOT NULL, CONSTRAINT "PK_7d7f07271ad4ce999880713f05e" PRIMARY KEY ("id"))`,
     )
     await queryRunner.query(
