@@ -4,9 +4,9 @@ import SubjectService from "../services/SubjectService"
 
 class SubjectController {
   public async indexSubject(req: Request, res: Response) {
-    const { id } = req.params
+    const { idPerid } = req.params
     try {
-      return res.status(200).json(await new SubjectService().index(id))
+      return res.status(200).json(await new SubjectService().index(idPerid))
     } catch (e) {
       res.status(404).json({ message: "Não há Materias Cadastrado!" })
     }
@@ -16,12 +16,15 @@ class SubjectController {
 
   public async createSubject(req: Request, res: Response) {
     const { title, acronym, avatar, period } = await req.body
-    try {
-      await new SubjectService().create(title, acronym, avatar, period)
-      res.status(201).json({ message: "Materia Cadastrado com Sucesso!" })
-    } catch (e) {
-      res.status(404).json({ message: "Materia não Cadastrado com Sucesso!" })
-    }
+    // try {
+    await new SubjectService()
+      .create(title, acronym, avatar, period)
+      .then(() => {
+        res.status(201).json({ message: "Materia Cadastrado com Sucesso!" })
+      })
+    // } catch (e) {
+    //   res.status(404).json({ message: "Materia não Cadastrado com Sucesso!" })
+    // }
   }
 
   public async updateSubject(req: Request, res: Response) {

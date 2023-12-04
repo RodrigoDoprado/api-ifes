@@ -1,27 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { NotFoundError } from "../api/api-error"
 import { periodRepository } from "../repository/PeriodRepository"
 import CourseService from "./CourseService"
 
 class PeriodService {
-  public async index(acronym) {
-    return await periodRepository.find({
-      relations: {
-        course: true,
-      },
-      where: {
-        course: {
-          acronym,
-        },
-      },
-    })
+  public async index(id) {
+    return await periodRepository.find({ where: { course: { id } } }) //relations: {subjects: true},
   }
 
   public async create(title, course) {
-    if (await new CourseService().show(course)) {
-      return await periodRepository.save(
-        periodRepository.create({ title, course }),
-      )
+    const buscaCurse = await new CourseService().show(course)
+    if (!buscaCurse) {
+      throw new NotFoundError("Curso Não Existe!")
     }
+    // console.log(title,buscaCurse.id)
+    return await periodRepository.save(
+      periodRepository.create({ title, course }),
+    )
   }
 
   public async show(id) {

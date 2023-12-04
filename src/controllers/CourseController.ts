@@ -23,9 +23,9 @@ class CourseController {
   }
 
   public async createCourse(req: Request, res: Response) {
-    const { title, acronym, teacher, avatar } = await req.body
+    const { title, acronym, avatar } = await req.body
     try {
-      await new CourseService().create(title, acronym, teacher, avatar)
+      await new CourseService().create(title, acronym, avatar)
       res.status(201).json({ message: "Curso Cadastrado com Sucesso" })
     } catch (e) {
       res.status(404).json({ message: "Curso não Cadastrado com Sucesso!" })
@@ -35,12 +35,13 @@ class CourseController {
   public async updateCourse(req: Request, res: Response) {
     const { title, acronym, avatar, teacher } = await req.body
     const { id } = req.params
-    try {
-      new CourseService().update(title, acronym, id, avatar, teacher)
+    // try {
+    new CourseService().update(title, acronym, id, avatar, teacher).then(() => {
       return res.status(200).json({ message: "Curso Alterado com Sucesso!" })
-    } catch (e) {
-      return res.status(404).json({ message: "Curso não Alterado!" })
-    }
+    })
+    // } catch (e) {
+    //   return res.status(404).json({ message: "Curso não Alterado!" })
+    // }
   }
 
   async deleteCourse(req: Request, res: Response) {

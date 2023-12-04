@@ -1,27 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { NotFoundError } from "../api/api-error"
 import { subjectRepository } from "../repository/SubjectRepository"
 import PeriodService from "./PeriodService"
 
 class SubjectService {
   public async index(id) {
-    return await subjectRepository.find({
-      relations: {
-        period: true,
-      },
-      where: {
-        period: {
-          id,
-        },
-      },
-    })
+    return await subjectRepository.find({ where: { period: { id } } }) //relations: {period: true,},
   }
 
   public async create(title, acronym, avatar, period) {
-    if (await new PeriodService().show(period)) {
-      return await subjectRepository.save(
-        subjectRepository.create({ title, acronym, avatar, period }),
-      )
+    if (!(await new PeriodService().show(period))) {
+      throw new NotFoundError("Periodo Não Existe!")
     }
+
+    return await subjectRepository.save(
+      subjectRepository.create({ title, acronym, avatar, period }),
+    )
   }
 
   public async show(id) {

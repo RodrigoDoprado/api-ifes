@@ -28,8 +28,9 @@ export class StudentEntity {
   @Column({ type: "text", nullable: false })
   public lastName: string
 
-  // @Column({ type: "text", nullable: false })
-  // public email: string
+  // @ManyToOne((type) => ClassEntity, (students) => students, { nullable: false })
+  // @JoinColumn({ name: "class_id", referencedColumnName: "id" })
+  // public classEntity: ClassEntity
 
   @ManyToOne((type) => CourseEntity, (students) => students, {
     nullable: false,

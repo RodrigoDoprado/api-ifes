@@ -12,7 +12,7 @@ class TeacherController {
   }
 
   public async showTeacher(req: Request, res: Response) {
-    return res.status(200).json({ store: req.teacher })
+    return res.status(200).json({ teacher: req.teacher })
   }
 
   public async createTeacher(req: Request, res: Response) {
@@ -27,10 +27,10 @@ class TeacherController {
   }
 
   public async updateTeacher(req: Request, res: Response) {
-    const { firstName, lastName, avatar } = await req.body
+    const { firstName, lastName, avatar, course } = await req.body
     const { id } = req.params
     try {
-      new TeacherService().update(firstName, lastName, avatar, id)
+      new TeacherService().update(firstName, lastName, avatar, id, course)
       return res
         .status(200)
         .json({ message: "Professor Alterado com Sucesso!" })

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { NotFoundError } from "../api/api-error"
 import { studentRepository } from "../repository/StudentRepository"
 import CourseService from "./CourseService"
 import CurseService from "./CourseService"
@@ -10,17 +11,18 @@ class StudentService {
 
   public async create(enroll, firstName, lastName, avatar, course) {
     const buscaCurse = await new CurseService().show(course)
-    if (buscaCurse) {
-      return await studentRepository.save(
-        await studentRepository.create({
-          enroll,
-          firstName,
-          lastName,
-          avatar,
-          course: buscaCurse,
-        }),
-      )
+    if (!buscaCurse) {
+      throw new NotFoundError("Curso Não Existe")
     }
+    return await studentRepository.save(
+      studentRepository.create({
+        enroll,
+        firstName,
+        lastName,
+        avatar,
+        course,
+      }),
+    )
   }
 
   public async showSignIn(enroll) {
@@ -37,6 +39,7 @@ class StudentService {
       return await studentRepository.findOne({
         relations: {
           course: true,
+          // classEntity: true
         },
         where: {
           enroll,
@@ -71,6 +74,9 @@ class StudentService {
       mesAtual = 2
     }
     const siglaCurso = await new CurseService().show(course)
+    if (!siglaCurso) {
+      throw new NotFoundError("Curso Não Existe")
+    }
     const numeros = Math.floor(Math.random() * 10000)
     const enroll =
       anoAtual + "" + mesAtual + "" + siglaCurso.acronym + "" + numeros

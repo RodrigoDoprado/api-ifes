@@ -11,6 +11,7 @@ import SubjectRouter from "./routers/SubjectRouter"
 import { ErrorMiddleware } from "./middlewares/ErrorMiddlewares"
 import PeriodRouter from "./routers/PeriodRouter"
 import AuthRouter from "./routers/AuthRouter"
+import ClassRouter from "./routers/ClassRouter"
 
 class App {
   public app: express.Application
@@ -44,6 +45,7 @@ class App {
     this.app.use(StudentRouter)
     this.app.use(TeacherRouter)
     this.app.use(CourseRouter)
+    this.app.use(ClassRouter)
     this.app.use(SubjectRouter)
     this.app.use(PeriodRouter)
     this.app.use(AuthRouter)

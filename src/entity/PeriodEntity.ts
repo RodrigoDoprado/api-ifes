@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm"
 import { CourseEntity } from "./CourseEntity"
 import { SubjectEntiry } from "./SubjectEntity"
@@ -24,4 +27,13 @@ export class PeriodEntity {
 
   @OneToMany((type) => SubjectEntiry, (period) => period)
   public subjects: SubjectEntiry[]
+
+  @CreateDateColumn()
+  public created_at: Date // Creation date
+
+  @UpdateDateColumn()
+  public updated_at: Date // Last updated date
+
+  @DeleteDateColumn()
+  public deleted_at: Date // Deletion date
 }

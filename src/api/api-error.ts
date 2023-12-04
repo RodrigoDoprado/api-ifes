@@ -13,6 +13,11 @@ export class SuccessfullyCreated extends ApiError {
   }
 }
 
+export class Successfully extends ApiError {
+  constructor(message: string) {
+    super(message, 200)
+  }
+}
 export class BadRequestError extends ApiError {
   constructor(message: string) {
     super(message, 400)

@@ -8,8 +8,8 @@ import {
   DeleteDateColumn,
   JoinColumn,
   ManyToOne,
+  OneToMany,
 } from "typeorm"
-
 @Entity("classes") //turmas
 export class ClassEntity {
   @PrimaryGeneratedColumn()
@@ -22,11 +22,21 @@ export class ClassEntity {
   public acronym: string //sigla
 
   @Column({ type: "text", nullable: false })
-  public Shift: string //turno
+  public shift: string //turno
 
-  //   @ManyToOne((type) => CourseEntity, (classes) => classes, { nullable: false })
-  //   @JoinColumn({ name: "course_id", referencedColumnName: "id" })
-  //   public course: CourseEntity
+  @Column({ type: "text", nullable: false })
+  public state: string //estado
+
+  // @ManyToOne((type) => PeriodEntity, (classEntity) => classEntity)
+  // @JoinColumn({ name: "period_id", referencedColumnName: "id" })
+  // public period: PeriodEntity
+
+  // @ManyToOne((type) => CourseEntity, (classes) => classes, { nullable: false })
+  // @JoinColumn({ name: "course_id", referencedColumnName: "id" })
+  // public course: CourseEntity
+
+  // @OneToMany((type) => StudentEntity, (classEntity) => classEntity)
+  // public students: StudentEntity[]
 
   @CreateDateColumn()
   public created_at: Date // Creation date

@@ -33,9 +33,10 @@
       "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
       "build": "tsc",
       "start": "ts-node ./build/server.js",
-      "husky": "husky install",
+      "husky": "husky install", 
       "test": "jest",
-      "typeorm": "typeorm-ts-node-commonjs"
+      "typeorm": "typeorm-ts-node-commonjs",
+      "vercel-build":"npm run migration:run"
    },
    "dependencies": {
       "bcrypt": "^5.1.0",

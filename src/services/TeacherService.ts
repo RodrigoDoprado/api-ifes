@@ -1,19 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { teacherRepository } from "../repository/TeacherRepository"
+import CourseService from "./CourseService"
 
 class TeacherService {
   public async index() {
-    return await teacherRepository.find() /* { relations: { course:true } } */
+    return await teacherRepository.find()
   }
 
   public async create(enroll, firstName, lastName, avatar) {
     return await teacherRepository.save(
-      teacherRepository.create({
-        enroll,
-        firstName,
-        lastName,
-        avatar,
-      }),
+      teacherRepository.create({ enroll, firstName, lastName, avatar }),
     )
   }
 
@@ -28,22 +24,22 @@ class TeacherService {
 
   public async showEnroll(enroll) {
     if (enroll != undefined)
-      return await teacherRepository.findOne({
-        where: {
-          enroll,
-        },
-      })
+      return await teacherRepository.findOne({ where: { enroll } }) //relations: {course: true,},
   }
 
-  public async update(firstName, lastName, avatar, id) {
-    const buscaStudent = await this.show(id)
-    if (buscaStudent) {
-      const data = {
-        firstName: firstName ? firstName : buscaStudent.firstName,
-        lastName: lastName ? lastName : buscaStudent.lastName,
-        avatar: avatar ? avatar : buscaStudent.avatar,
+  public async update(firstName, lastName, avatar, id, course) {
+    const buscaTeacher = await this.show(id)
+    const buscaCurse = await new CourseService().show(course)
+    if (buscaCurse) {
+      if (buscaTeacher) {
+        const data = {
+          firstName: firstName ? firstName : buscaTeacher.firstName,
+          lastName: lastName ? lastName : buscaTeacher.lastName,
+          avatar: avatar ? avatar : buscaTeacher.avatar,
+          course: course ? course : buscaTeacher.course,
+        }
+        return await teacherRepository.update(buscaTeacher.id, data)
       }
-      return await teacherRepository.update(buscaStudent.id, data)
     }
   }
 

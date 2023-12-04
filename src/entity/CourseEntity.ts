@@ -29,14 +29,17 @@ export class CourseEntity {
   public acronym: string //sigla
 
   @OneToMany((type) => PeriodEntity, (course) => course)
-  public periods: PeriodEntity[] //períodos
+  public periods?: PeriodEntity[] //períodos
 
   @OneToMany((type) => StudentEntity, (course) => course)
   public students: StudentEntity[]
 
-  @OneToOne((type) => TeacherEntity, (course) => course, { nullable: false })
-  @JoinColumn({ name: "coordinator_id", referencedColumnName: "id" })
-  public teacher: TeacherEntity //professor coordenador
+  // @OneToMany((type) => ClassEntity, (course) => course)
+  // public classes: ClassEntity[]
+
+  @OneToOne((type) => TeacherEntity, (course) => course)
+  @JoinColumn({ name: "teacher_id", referencedColumnName: "id" })
+  public teacher?: TeacherEntity //professor coordenador
 
   @CreateDateColumn()
   public created_at: Date // Creation date
