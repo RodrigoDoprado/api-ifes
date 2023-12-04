@@ -35,8 +35,7 @@
       "start": "ts-node ./build/server.js",
       "husky": "husky install", 
       "test": "jest",
-      "typeorm": "typeorm-ts-node-commonjs",
-      "vercel-build": "build"
+      "typeorm": "typeorm-ts-node-commonjs"
    },
    "dependencies": {
       "bcrypt": "^5.1.0",
