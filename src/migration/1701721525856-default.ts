@@ -1,9 +1,12 @@
 import { MigrationInterface, QueryRunner } from "typeorm"
 
-export class Default1701721220499 implements MigrationInterface {
-  name = "Default1701721220499"
+export class Default1701721525856 implements MigrationInterface {
+  name = "Default1701721525856"
 
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `CREATE TABLE "classes" ("id" SERIAL NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, CONSTRAINT "PK_e207aa15404e9b2ce35910f9f7f" PRIMARY KEY ("id"))`,
+    )
     await queryRunner.query(
       `CREATE TABLE "students" ("id" SERIAL NOT NULL, "avatar" text NOT NULL, "enroll" text NOT NULL, "firstName" text NOT NULL, "lastName" text NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, "course_id" integer NOT NULL, CONSTRAINT "PK_7d7f07271ad4ce999880713f05e" PRIMARY KEY ("id"))`,
     )
@@ -18,9 +21,6 @@ export class Default1701721220499 implements MigrationInterface {
     )
     await queryRunner.query(
       `CREATE TABLE "courses" ("id" SERIAL NOT NULL, "avatar" text NOT NULL, "title" text NOT NULL, "acronym" text NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, "teacher_id" integer, CONSTRAINT "REL_fad76a730ee7f68d0a59652fb1" UNIQUE ("teacher_id"), CONSTRAINT "PK_3f70a487cc718ad8eda4e6d58c9" PRIMARY KEY ("id"))`,
-    )
-    await queryRunner.query(
-      `CREATE TABLE "classes" ("id" SERIAL NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, CONSTRAINT "PK_e207aa15404e9b2ce35910f9f7f" PRIMARY KEY ("id"))`,
     )
     await queryRunner.query(
       `ALTER TABLE "students" ADD CONSTRAINT "FK_2a3ddf4de242a7cba3309a9acd6" FOREIGN KEY ("course_id") REFERENCES "courses"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
@@ -49,11 +49,11 @@ export class Default1701721220499 implements MigrationInterface {
     await queryRunner.query(
       `ALTER TABLE "students" DROP CONSTRAINT "FK_2a3ddf4de242a7cba3309a9acd6"`,
     )
-    await queryRunner.query(`DROP TABLE "classes"`)
     await queryRunner.query(`DROP TABLE "courses"`)
     await queryRunner.query(`DROP TABLE "periods"`)
     await queryRunner.query(`DROP TABLE "subjects"`)
     await queryRunner.query(`DROP TABLE "teachers"`)
     await queryRunner.query(`DROP TABLE "students"`)
+    await queryRunner.query(`DROP TABLE "classes"`)
   }
 }
