@@ -1,31 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Entity,
-  Column,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   DeleteDateColumn,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
 } from "typeorm"
 @Entity("classes") //turmas
 export class ClassEntity {
   @PrimaryGeneratedColumn()
   public id: string
 
-  @Column({ type: "text", nullable: false })
-  public title: string
+  // @Column({ type: "text", nullable: false })
+  // public title: string
 
-  @Column({ type: "text", nullable: false })
-  public acronym: string //sigla
+  // @Column({ type: "text", nullable: false })
+  // public acronym: string //sigla
 
-  @Column({ type: "text", nullable: false })
-  public shift: string //turno
+  // @Column({ type: "text", nullable: false })
+  // public shift: string //turno
 
-  @Column({ type: "text", nullable: false })
-  public state: string //estado
+  // @Column({ type: "text", nullable: false })
+  // public state: string //estado
 
   // @ManyToOne((type) => PeriodEntity, (classEntity) => classEntity)
   // @JoinColumn({ name: "period_id", referencedColumnName: "id" })
