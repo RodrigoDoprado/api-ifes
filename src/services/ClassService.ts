@@ -21,10 +21,10 @@ class ClassService {
     // return await classRepository.save(classRepository.create({title,acronym,shift,state,course,period}),)
   }
 
-  public async showAcronym(acronym) {
-    if (acronym != undefined)
+  public async showAcronym(id) {
+    if (id != undefined)
       return await classRepository.findOne({
-        // where: { acronym },
+        where: { id },
         //relations: { teacher: true },
       })
   }
