@@ -4,9 +4,9 @@ import AuthService from "../services/AuthService"
 
 class AuthController {
   public async createSignIn(req: Request, res: Response) {
-    const { email } = await req.body
+    const { loginInput } = await req.body
     try {
-      res.status(200).json(await new AuthService().signIn(email))
+      res.status(200).json(await new AuthService().signIn(loginInput))
     } catch (e) {
       res.status(404).json({ message: "Login ou Senha Invalido!" })
     }

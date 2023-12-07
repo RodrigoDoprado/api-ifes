@@ -24,7 +24,7 @@ class ClassService {
   public async showAcronym(acronym) {
     if (acronym != undefined)
       return await classRepository.findOne({
-        where: { acronym },
+        // where: { acronym },
         //relations: { teacher: true },
       })
   }
